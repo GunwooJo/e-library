@@ -1,9 +1,11 @@
-package kangnamuniv.elibrary.domain;
+package kangnamuniv.elibrary.entity;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 @Getter @Setter
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
+@AllArgsConstructor
+@Builder
 public class User {
     private Long id;
     private String username;    //email 형식
