@@ -32,11 +32,6 @@ public class MemoryUserRepository implements UserRepository{
     }
 
     @Override
-    public Long login(String username, String password) {
-        return null;
-    }
-
-    @Override
     public Optional<User> findByUsername(String username) {
         return db.values().stream()
                 .filter(user -> user.getUsername().equals(username))
