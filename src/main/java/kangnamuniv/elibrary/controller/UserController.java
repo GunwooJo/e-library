@@ -3,6 +3,7 @@ package kangnamuniv.elibrary.controller;
 import jakarta.servlet.http.HttpSession;
 import kangnamuniv.elibrary.dto.UserDTO;
 import kangnamuniv.elibrary.entity.User;
+import kangnamuniv.elibrary.entity.UserRole;
 import kangnamuniv.elibrary.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
@@ -36,6 +37,11 @@ public class UserController {
             return "redirect:/user/login?error=true";
         }
         session.setAttribute("loggedInUser", loggedInUser.get());
+
+        if (loggedInUser.get().getRole() == UserRole.ROLE_ADMIN) {
+            return "redirect:/admin";
+        }
+
         return "redirect:/home";
     }
 
