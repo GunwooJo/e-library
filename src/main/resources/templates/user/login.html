@@ -1,11 +1,16 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>로그인</title>
 </head>
 <body>
 <h1>로그인</h1>
+
+<div>
+    <span th:if="${loginErrorMsg}" th:text="${loginErrorMsg}" style="color: red"></span>
+</div>
+
 <form action="/user/login" method="post">
     <div>
         <label for="username">이메일:</label>
