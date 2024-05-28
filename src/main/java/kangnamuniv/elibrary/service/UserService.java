@@ -7,6 +7,8 @@ import kangnamuniv.elibrary.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+
 @Service
 @RequiredArgsConstructor
 public class UserService {
@@ -22,5 +24,15 @@ public class UserService {
                 .build();
 
         return userRepository.save(user);
+    }
+
+    public Optional<User> login(UserDTO userDTO) {
+
+        Optional<User> foundUser = userRepository.findByUsername(userDTO.getUsername());
+        if (foundUser.isEmpty() || !foundUser.get().getPassword().equals(userDTO.getPassword())) {
+            return Optional.empty();
+        }
+
+        return foundUser;
     }
 }
