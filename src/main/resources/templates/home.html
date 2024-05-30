@@ -13,7 +13,7 @@
         <strong>출판사:</strong> <span th:text="${book.publisher}"></span><br/>
         <strong>PDF Path:</strong> <span th:text="${book.pdfPath}"></span><br/>
         <strong>남은 책:</strong> <span th:text="${book.availableCount}"></span>
-        <form th:action="@{/detail/{id}(id=${book.id})}" method="get">
+        <form action="/detail/{id}" method="get">
             <input type="hidden" name="id" th:value="${book.id}">
             <button type="submit">수정하기</button>
         </form>
