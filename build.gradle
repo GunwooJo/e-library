@@ -11,10 +11,6 @@ java {
 	sourceCompatibility = '21'
 }
 
-compileJava {
-	options.compilerArgs << '-parameters'
-}
-
 configurations {
 	compileOnly {
 		extendsFrom annotationProcessor

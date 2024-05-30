@@ -34,8 +34,8 @@ public class Controller {
         return "redirect:/home";
     }
 
-    @RequestMapping("/detail/{id}")
-    public String detail(@PathVariable int id, Model model) {
+    @RequestMapping("/detail")
+    public String detail(@RequestParam("id") int id, Model model) {
         Book book = service.findById(id);
         model.addAttribute("book", book);
         return "detail";
