@@ -3,5 +3,7 @@ package kangnamuniv.elibrary;
 import java.util.List;
 
 public interface BookService {
-    List<Book> getBook();
+    public List<Book> getBook();
+    void saveBook(Book book);
+    Book findById(int id);
 }

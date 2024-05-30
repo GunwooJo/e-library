@@ -3,9 +3,7 @@ package kangnamuniv.elibrary;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -16,10 +14,31 @@ public class Controller {
     @Autowired
     private BookService service;
 
-    @RequestMapping("/")
+    @RequestMapping("/home")
     public String home(Model model) {
         model.addAttribute("Books", service.getBook());
         return "home";
+    }
+    private BookService getService() {
+        return service;
+    }
+
+    @RequestMapping("/insertForm")
+    public String save(Model model) {
+        return "insertForm";
+    }
+
+    @RequestMapping("/insert")
+    public String saveBook(Book book) {
+        service.saveBook(book);
+        return "redirect:/home";
+    }
+
+    @RequestMapping("/detail/{id}")
+    public String detail(@PathVariable int id, Model model) {
+        Book book = service.findById(id);
+        model.addAttribute("book", book);
+        return "detail";
     }
 }
 

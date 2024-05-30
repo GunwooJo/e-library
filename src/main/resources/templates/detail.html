@@ -1,0 +1,25 @@
+<!-- detail.html -->
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Book Detail</title>
+</head>
+<body>
+<h1>Book Detail</h1>
+<form action="/update" method="post">
+    <input type="hidden" th:field="*{id}"/>
+    <label for="title">Title:</label><br>
+    <input type="text" id="title" name="title" th:value="${book.title}"><br>
+    <label for="author">Author:</label><br>
+    <input type="text" id="author" name="author" th:value="${book.author}"><br>
+    <label for="publisher">Publisher:</label><br>
+    <input type="text" id="publisher" name="publisher" th:value="${book.publisher}"><br>
+    <label for="pdfPath">PDF Path:</label><br>
+    <input type="text" id="pdfPath" name="pdfPath" th:value="${book.pdfPath}"><br>
+    <label for="availableCount">Available Count:</label><br>
+    <input type="number" id="availableCount" name="availableCount" th:value="${book.availableCount}"><br><br>
+    <input type="submit" value="저장하기">
+</form>
+</body>
+</html>

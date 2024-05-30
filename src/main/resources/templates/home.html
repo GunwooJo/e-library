@@ -5,9 +5,23 @@
     <title>Title</title>
 </head>
 <body>
-Book List 입니다.
-
-<li th:each="book : ${Books}" th:text="${book}">
-</li>
+<h1>Book List</h1>
+<ul>
+    <li th:each="book : ${Books}">
+        <strong>제목:</strong> <span th:text="${book.title}"></span><br/>
+        <strong>저자:</strong> <span th:text="${book.author}"></span><br/>
+        <strong>출판사:</strong> <span th:text="${book.publisher}"></span><br/>
+        <strong>PDF Path:</strong> <span th:text="${book.pdfPath}"></span><br/>
+        <strong>남은 책:</strong> <span th:text="${book.availableCount}"></span>
+        <form action="/detail/{id}" method="get">
+            <input type="hidden" name="id" th:value="${book.id}">
+            <button type="submit">수정하기</button>
+        </form>
+        <br/>
+    </li>
+</ul>
+<form action="/insertForm" method="get">
+    <button type="submit">도서 추가</button>
+</form>
 </body>
 </html>

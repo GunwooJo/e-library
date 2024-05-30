@@ -1,12 +1,13 @@
 package kangnamuniv.elibrary;
 
+import org.springframework.stereotype.Repository;
+
 import java.util.ArrayList;
 import java.util.List;
 
+@Repository
 public class BookMemoryDAOImple implements BookDAO{
     private List<Book> database;
-
-
 
     public BookMemoryDAOImple() {
         database = new ArrayList<>();
@@ -15,7 +16,23 @@ public class BookMemoryDAOImple implements BookDAO{
         database.add(new Book(3,"제목3","저자3","출판사3","PDF경로3",3));
     }
 
+    @Override
     public List<Book> getBook() {
         return database;
+    }
+
+    @Override
+    public void saveBook(Book book) {
+        database.add(book);
+    }
+
+    @Override
+    public Book findById(int id){
+        for (Book book : database) {
+            if (book.getId() == id) {
+                return book;
+            }
+        }
+        return null;
     }
 }
