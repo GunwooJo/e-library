@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+Book List 입니다.
+
+<li th:each="book : ${Books}" th:text="${book}">
+</li>
+</body>
+</html>
