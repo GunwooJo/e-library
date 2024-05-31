@@ -39,9 +39,15 @@ public class BookMemoryDAOImpl implements BookDAO{
     }
 
     @Override
-    public List<Book> searchBooksByTitle(String searchWord) {
+    public List<Book> searchBooksByTitle(String searchWord, int page, int size) {
+
+        int skip = (page - 1) * size;
+        int limit = size;
+
         return database.stream()
                 .filter(book -> book.getTitle().contains(searchWord))
+                .skip(skip)
+                .limit(limit)
                 .collect(Collectors.toList());
     }
 }

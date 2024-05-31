@@ -8,5 +8,5 @@ public interface BookDAO {
     List<Book> getBook();
     void saveBook(Book book);
     Book findById(int id);
-    List<Book> searchBooksByTitle(String searchWord);
+    List<Book> searchBooksByTitle(String searchWord, int page, int size);
 }
