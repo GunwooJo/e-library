@@ -27,4 +27,9 @@ public class BookServiceImpl implements BookService{
     public Book findById(int id) {
         return dao.findById(id);
     }
+
+    @Override
+    public List<Book> searchBooksByTitle(String searchWord, int page, int size) {
+        return dao.searchBooksByTitle(searchWord, page, size);
+    }
 }
