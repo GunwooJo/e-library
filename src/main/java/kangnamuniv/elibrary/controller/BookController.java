@@ -1,15 +1,14 @@
-package kangnamuniv.elibrary;
+package kangnamuniv.elibrary.controller;
 
 
+import kangnamuniv.elibrary.service.BookService;
+import kangnamuniv.elibrary.entity.Book;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
-import java.util.List;
-
 @org.springframework.stereotype.Controller
-public class Controller {
+public class BookController {
 
     @Autowired
     private BookService service;
@@ -23,22 +22,28 @@ public class Controller {
         return service;
     }
 
-    @RequestMapping("/insertForm")
+    @GetMapping("/insertForm")
     public String save(Model model) {
         return "insertForm";
     }
 
-    @RequestMapping("/insert")
+    @PostMapping("/insert")
     public String saveBook(Book book) {
         service.saveBook(book);
         return "redirect:/home";
     }
 
-    @RequestMapping("/detail/{id}")
+    @GetMapping("/detail/{id}")
     public String detail(@PathVariable("id") int id, Model model) {
         Book book = service.findById(id);
         model.addAttribute("book", book);
         return "detail";
+    }
+
+    @GetMapping("/delete/{id}")
+    public String delete(@PathVariable("id") int id, Model model) {
+        service.deleteBook(id);
+        return "redirect:/home";
     }
 }
 

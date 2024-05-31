@@ -1,4 +1,4 @@
-package kangnamuniv.elibrary;
+package kangnamuniv.elibrary.entity;
 
 
 import lombok.*;
