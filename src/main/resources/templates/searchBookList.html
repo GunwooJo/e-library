@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>검색결과</title>
+    <div th:replace="~{/fragments/bootstrapSetting :: bootstrap-setting}"></div>
+</head>
+<body>
+
+    <h1>검색결과</h1>
+    <ul>
+        <li th:each="book : ${Books}">
+            <strong>제목:</strong> <span th:text="${book.title}"></span><br/>
+            <strong>저자:</strong> <span th:text="${book.author}"></span><br/>
+            <strong>출판사:</strong> <span th:text="${book.publisher}"></span><br/>
+            <strong>PDF Path:</strong> <span th:text="${book.pdfPath}"></span><br/>
+            <strong>남은 책:</strong> <span th:text="${book.availableCount}"></span>
+            <br/>
+        </li>
+    </ul>
+
+    <nav>
+        <ul class="pagination">
+            <!-- 이전 페이지 버튼 -->
+            <li class="page-item" th:classappend="${page == 1} ? 'disabled' : ''">
+                <a class="page-link" th:href="@{|/book/search?title=${title}&page=${page - 1}|}" aria-label="Previous">
+                    <span aria-hidden="true">&laquo;</span>
+                </a>
+            </li>
+
+            <!-- 페이지 번호 -->
+            <li class="page-item" th:each="i : ${#numbers.sequence(1, totalPage)}" th:classappend="${i == page} ? 'active' : ''">
+                <a class="page-link" th:href="@{|/book/search?title=${title}&page=${i}|}" th:text="${i}"></a>
+            </li>
+
+            <!-- 다음 페이지 버튼 -->
+            <li class="page-item" th:classappend="${page == totalPage} ? 'disabled' : ''">
+                <a class="page-link" th:href="@{|/book/search?title=${title}&page=${page + 1}|}" aria-label="Next">
+                    <span aria-hidden="true">&raquo;</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+</body>
+</html>

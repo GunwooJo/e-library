@@ -1,5 +1,6 @@
 package kangnamuniv.elibrary.service;
 
+import kangnamuniv.elibrary.dto.BookSearchResultDTO;
 import kangnamuniv.elibrary.entity.Book;
 import kangnamuniv.elibrary.repository.BookDAO;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,7 +30,7 @@ public class BookServiceImpl implements BookService{
     }
 
     @Override
-    public List<Book> searchBooksByTitle(String searchWord, int page, int size) {
+    public BookSearchResultDTO searchBooksByTitle(String searchWord, int page, int size) {
         return dao.searchBooksByTitle(searchWord, page, size);
     }
 }
