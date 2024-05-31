@@ -8,10 +8,7 @@ import kangnamuniv.elibrary.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Optional;
 
@@ -37,6 +34,7 @@ public class UserController {
             return "redirect:/user/login?error=true";
         }
         session.setAttribute("loggedInUser", loggedInUser.get());
+        session.setMaxInactiveInterval(1800);   //세션 유효시간 30분 = 1800초
 
         if (loggedInUser.get().getRole() == UserRole.ROLE_ADMIN) {
             return "redirect:/admin";
