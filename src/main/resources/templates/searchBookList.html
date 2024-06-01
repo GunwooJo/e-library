@@ -19,27 +19,30 @@
         </li>
     </ul>
 
-    <nav>
+
+    <nav th:if="${totalPage > 0}">
         <ul class="pagination">
             <!-- 이전 페이지 버튼 -->
             <li class="page-item" th:classappend="${page == 1} ? 'disabled' : ''">
-                <a class="page-link" th:href="@{|/book/search?title=${title}&page=${page - 1}|}" aria-label="Previous">
+                <a class="page-link" th:href="@{|/book/search?keyword=${keyword}&page=${page - 1}&target=${target}|}" aria-label="Previous">
                     <span aria-hidden="true">&laquo;</span>
                 </a>
             </li>
 
             <!-- 페이지 번호 -->
             <li class="page-item" th:each="i : ${#numbers.sequence(1, totalPage)}" th:classappend="${i == page} ? 'active' : ''">
-                <a class="page-link" th:href="@{|/book/search?title=${title}&page=${i}|}" th:text="${i}"></a>
+                <a class="page-link" th:href="@{|/book/search?keyword=${keyword}&page=${i}&target=${target}|}" th:text="${i}"></a>
             </li>
 
             <!-- 다음 페이지 버튼 -->
             <li class="page-item" th:classappend="${page == totalPage} ? 'disabled' : ''">
-                <a class="page-link" th:href="@{|/book/search?title=${title}&page=${page + 1}|}" aria-label="Next">
+                <a class="page-link" th:href="@{|/book/search?keyword=${keyword}&page=${page + 1}&target=${target}|}" aria-label="Next">
                     <span aria-hidden="true">&raquo;</span>
                 </a>
             </li>
         </ul>
     </nav>
+
+    <p th:if="${totalPage == 0}">검색결과가 없습니다.</p>
 </body>
 </html>

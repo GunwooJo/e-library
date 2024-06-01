@@ -10,4 +10,5 @@ public interface BookService {
     void saveBook(Book book);
     Book findById(int id);
     BookSearchResultDTO searchBooksByTitle(String searchWord, int page, int size);
+    BookSearchResultDTO searchBooksByAuthor(String searchWord, int page, int size);
 }

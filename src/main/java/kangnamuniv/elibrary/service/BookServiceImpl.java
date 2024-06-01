@@ -33,4 +33,9 @@ public class BookServiceImpl implements BookService{
     public BookSearchResultDTO searchBooksByTitle(String searchWord, int page, int size) {
         return dao.searchBooksByTitle(searchWord, page, size);
     }
+
+    @Override
+    public BookSearchResultDTO searchBooksByAuthor(String searchWord, int page, int size) {
+        return dao.searchBooksByAuthor(searchWord, page, size);
+    }
 }

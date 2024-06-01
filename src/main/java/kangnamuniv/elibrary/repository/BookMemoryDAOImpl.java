@@ -75,4 +75,29 @@ public class BookMemoryDAOImpl implements BookDAO{
 
         return new BookSearchResultDTO(foundBooks, totalPage);
     }
+
+    @Override
+    public BookSearchResultDTO searchBooksByAuthor(String searchWord, int page, int size) {
+
+        int skip = (page - 1) * size;
+        int limit = size;
+
+        Long bookCount = database.stream()
+                .filter(book -> book.getAuthor().contains(searchWord))
+                .count();
+
+        int totalPage = (int) (bookCount / size);
+
+        if (bookCount % size != 0) {
+            totalPage++;
+        }
+
+        List<Book> foundBooks = database.stream()
+                .filter(book -> book.getAuthor().contains(searchWord))
+                .skip(skip)
+                .limit(limit)
+                .collect(Collectors.toList());
+
+        return new BookSearchResultDTO(foundBooks, totalPage);
+    }
 }
