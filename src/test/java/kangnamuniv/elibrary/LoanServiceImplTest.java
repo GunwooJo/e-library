@@ -20,6 +20,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Optional;
 
@@ -54,14 +55,14 @@ public class LoanServiceImplTest {
     public void testLoanBook() {
         Long userId = 1L;
         Long bookId = 1L;
-        System.out.println("Testing loanBook with userId: {} and bookId: {}"+ userId+ bookId);
+        System.out.println("Testing loanBook with userId: {"+userId+"} and bookId: {"+bookId+"}" );
         when(loanRepository.findByBookIdAndIsReturnedFalse(bookId)).thenReturn(new ArrayList<>());
 
-        Loan loan = new Loan(null, bookId, userId, LocalDate.now(), LocalDate.now().plusWeeks(2), false);
+        Loan loan = new Loan(null, bookId, userId, LocalDateTime.now(), LocalDateTime.now().plusWeeks(2), false);
         when(loanRepository.save(any(Loan.class))).thenReturn(loan);
 
         Loan result = loanService.loanBook(userId, bookId);
-
+        System.out.println("Testing loanBook with Loan: {"+result.toString()+"}" );
         assertNotNull(result);
         assertEquals(bookId, result.getBookId());
         assertEquals(userId, result.getUserId());
@@ -71,7 +72,7 @@ public class LoanServiceImplTest {
     @Test
     public void testReturnBook() {
         Long loanId = 1L;
-        Loan loan = new Loan(loanId, 1L, 1L, LocalDate.now(), LocalDate.now().plusWeeks(2), false);
+        Loan loan = new Loan(loanId, 1L, 1L, LocalDateTime.now(), LocalDateTime.now().plusWeeks(2), false);
         when(loanRepository.findById(loanId)).thenReturn(Optional.of(loan));
         when(loanRepository.save(any(Loan.class))).thenReturn(loan);
 
@@ -85,7 +86,7 @@ public class LoanServiceImplTest {
     public void testFindLoansByUser() {
         Long userId = 1L;
         ArrayList<Loan> loans = new ArrayList<>();
-        loans.add(new Loan(1L, 1L, userId, LocalDate.now(), LocalDate.now().plusWeeks(2), false));
+        loans.add(new Loan(1L, 1L, userId, LocalDateTime.now(), LocalDateTime.now().plusWeeks(2), false));
         when(loanRepository.findByUserIdAndIsReturnedFalse(userId)).thenReturn(loans);
 
         ArrayList<Loan> result = loanService.findLoansByUser(userId);

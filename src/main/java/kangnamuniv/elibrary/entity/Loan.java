@@ -1,21 +1,20 @@
 package kangnamuniv.elibrary.entity;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @Getter
 @Setter
+@ToString
 @NoArgsConstructor
 @AllArgsConstructor
 public class Loan {
     private Long id;
     private Long bookId;
     private Long userId;
-    private LocalDate loanDate;
-    private LocalDate dueDate;
+    private LocalDateTime loanDate;
+    private LocalDateTime dueDate;
     private boolean isReturned;
 }
