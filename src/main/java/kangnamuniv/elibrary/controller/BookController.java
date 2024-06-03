@@ -1,13 +1,15 @@
 package kangnamuniv.elibrary.controller;
 
 
+import kangnamuniv.elibrary.dto.BookSearchResultDTO;
 import kangnamuniv.elibrary.service.BookService;
 import kangnamuniv.elibrary.entity.Book;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-@org.springframework.stereotype.Controller
+@Controller
 public class BookController {
 
     @Autowired
@@ -44,6 +46,28 @@ public class BookController {
     public String delete(@PathVariable("id") int id, Model model) {
         service.deleteBook(id);
         return "redirect:/home";
+    }
+
+    @GetMapping("/book/search")
+    public String searchByTitle(@RequestParam String keyword, @RequestParam String target, @RequestParam int page,  Model model) {
+
+        BookSearchResultDTO result;
+
+        if ("title".equals(target)) {
+            result = service.searchBooksByTitle(keyword, page, 10);
+        } else if ("author".equals(target)) {
+            result = service.searchBooksByAuthor(keyword, page, 10);
+        } else {
+            return "redirect:/errorPage.html";
+        }
+
+        model.addAttribute("Books", result.getBooks());
+        model.addAttribute("totalPage", result.getTotalPage());
+        model.addAttribute("keyword", keyword);
+        model.addAttribute("page", page);
+        model.addAttribute("target", target);
+
+        return "searchBookList";
     }
 }
 

@@ -1,9 +1,9 @@
-<form class="d-flex" role="search" th:fragment="search-form" action="/book/search">
+<form th:fragment="search-form" action="/book/search">
     <select name="target">
         <option value="title">제목</option>
         <option value="author">저자</option>
     </select>
-    <input class="form-control me-2" type="search" placeholder="검색" aria-label="Search" name="keyword">
+    <input type="search" placeholder="검색" name="keyword">
     <input type="hidden" name="page" value="1"/>
-    <button class="btn btn-outline-success" type="submit">검색</button>
+    <button type="submit">검색</button>
 </form>

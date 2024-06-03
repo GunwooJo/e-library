@@ -6,7 +6,7 @@
     <div th:replace="~{/fragments/bootstrapSetting :: bootstrap-setting}"></div>
 </head>
 <body>
-
+    <div th:replace="~{/fragments/searchForm :: search-form}"></div>
     <h1>검색결과</h1>
     <ul>
         <li th:each="book : ${Books}">

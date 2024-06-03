@@ -6,6 +6,7 @@
 </head>
 <body>
 <h1>Book List</h1>
+<div th:replace="~{/fragments/searchForm :: search-form}"></div>
 <ul>
     <li th:each="book : ${Books}">
         <strong>제목:</strong> <span th:text="${book.title}"></span><br/>
