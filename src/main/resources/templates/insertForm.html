@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>새로운 책 등록</title>
+</head>
+<body>
+<h1>새로운 책 등록</h1>
+<form action="/insert" method="post">
+    <label for="title">제목:</label><br>
+    <input type="text" id="title" name="title"><br>
+    <label for="author">저자:</label><br>
+    <input type="text" id="author" name="author"><br>
+    <label for="publisher">출판사:</label><br>
+    <input type="text" id="publisher" name="publisher"><br>
+    <label for="pdfPath">PDF 경로:</label><br>
+    <input type="text" id="pdfPath" name="pdfPath"><br>
+    <label for="AvailableCount">대출가능 권 수:</label><br>
+    <input type="number" id="AvailableCount" name="rating"><br><br>
+    <input type="submit" value="등록하기">
+</form>
+</body>
+</html>
