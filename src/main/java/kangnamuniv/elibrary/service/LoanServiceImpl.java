@@ -14,7 +14,7 @@ public class LoanServiceImpl implements LoanService {
     private MemoryLoanRepository loanRepository;
 
     @Override
-    public Loan loanBook(Long userId, Long bookId) {
+    public Loan loanBook(Long userId, int bookId) {
         ArrayList<Loan> existingLoans = loanRepository.findByBookIdAndIsReturnedFalse(bookId);
         if (existingLoans.isEmpty()) {
             LocalDateTime loanDate = LocalDateTime.now();

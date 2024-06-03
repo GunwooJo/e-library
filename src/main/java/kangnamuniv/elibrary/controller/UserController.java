@@ -1,15 +1,22 @@
 package kangnamuniv.elibrary.controller;
 
 import jakarta.servlet.http.HttpSession;
+import kangnamuniv.elibrary.dto.LoanBookDTO;
 import kangnamuniv.elibrary.dto.UserDTO;
+import kangnamuniv.elibrary.entity.Book;
+import kangnamuniv.elibrary.entity.Loan;
 import kangnamuniv.elibrary.entity.User;
 import kangnamuniv.elibrary.entity.UserRole;
+import kangnamuniv.elibrary.service.BookService;
+import kangnamuniv.elibrary.service.LoanService;
 import kangnamuniv.elibrary.service.UserService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.Optional;
 
 @Controller
@@ -17,6 +24,10 @@ import java.util.Optional;
 public class UserController {
 
     private final UserService userService;
+    @Autowired
+    private BookService bookService;
+    @Autowired
+    private LoanService loanService;
 
     @PostMapping("/user/signup")
     public String signUp(@ModelAttribute UserDTO userDTO) {
@@ -51,5 +62,26 @@ public class UserController {
         }
 
         return "/user/login";
+    }
+
+    @GetMapping("/user/mypage")
+    public String myPage(Model model, HttpSession session) {
+        User user = (User) session.getAttribute("loggedInUser");
+        if (user != null) {
+            ArrayList<Loan> loans = loanService.findLoansByUser(user.getId());
+            ArrayList<LoanBookDTO> loanBookDTOs = new ArrayList<>();
+
+            for (Loan loan : loans) {
+                Book book = bookService.findById(loan.getBookId());
+                loanBookDTOs.add(new LoanBookDTO(loan, book));
+            }
+
+
+            model.addAttribute("books", loanBookDTOs);
+            model.addAttribute("user", user);
+        }
+
+
+        return "/user/mypage";
     }
 }

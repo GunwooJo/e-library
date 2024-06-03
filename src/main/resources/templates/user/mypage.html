@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>마이페이지</title>
+    <style>
+        body {
+           font-family: Arial, sans-serif;
+           background-color: #f8f9fa;
+           margin: 0;
+           padding: 0;
+       }
+       .container {
+           max-width: 950px;
+           margin: 0 auto;
+           padding: 20px;
+           background-color: #fff;
+           box-shadow: 0 2px 3px rgba(0,0,0,0.1);
+           margin-top: 50px;
+       }
+       .header {
+           text-align: center;
+           padding: 10px;
+           background-color: #007bff;
+           color: #ffffff;
+       }
+       .profile {
+           display: flex;
+           align-items: center;
+           margin-bottom: 20px;
+       }
+       .profile img {
+           border-radius: 50%;
+           width: 100px;
+           height: 100px;
+           margin-right: 20px;
+       }
+       .profile-info {
+           flex-grow: 1;
+       }
+       .profile-info h2 {
+           margin: 0;
+           color: #007bff;
+       }
+       .profile-info p {
+           margin: 5px 0;
+       }
+       .section {
+           margin-bottom: 20px;
+       }
+       .section h3 {
+           border-bottom: 2px solid #007bff;
+           padding-bottom: 5px;
+           margin-bottom: 10px;
+       }
+       .table-container {
+           overflow-x: auto;
+       }
+       table {
+           width: 100%;
+           border-collapse: collapse;
+           margin: 20px 0;
+           box-shadow: 0 2px 3px rgba(0,0,0,0.1);
+       }
+       th, td {
+           padding: 12px 15px;
+           border: 1px solid #ddd;
+           text-align: left;
+       }
+       th {
+           background-color: #007bff;
+           color: #ffffff;
+       }
+       tr:nth-child(even) {
+           background-color: #f2f2f2;
+       }
+       tr:hover {
+           background-color: #f1f1f1;
+       }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>MyPage</h1>
+        </div>
+        <div class="profile">
+            <img th:src="@{/img/simple_professional_profile_icon.png}" alt="Profile Picture">
+            <div class="profile-info">
+                <h2 th:text="${user.username}"></h2>
+            </div>
+        </div>
+        <div class="section">
+            <h3>Personal Information</h3>
+            <p><strong>Name:</strong></p>
+            <p><strong>Birthday:</strong> January 1, 1990</p>
+            <p><strong>Location:</strong> New York, USA</p>
+        </div>
+        <table>
+            <caption>대출한 책</caption>
+            <thead>
+                <tr>
+                    <th>제목</th>
+                    <th>저자</th>
+                    <th>출판사</th>
+                    <th>대출 날짜</th>
+                    <th>반납 기한</th>
+                    <th>반납 여부</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="book : ${books}">
+                    <td th:text="${book.title}"></td>
+                    <td th:text="${book.author}"></td>
+                    <td th:text="${book.publisher}"></td>
+                    <td th:text="${book.loanDate}"></td>
+                    <td th:text="${book.dueDate}"></td>
+                    <td th:text="${book.isReturned}"></td>
+                </tr>
+            </tbody>
+            <tfoot>
+            </tfoot>
+        </table>
+    </div>
+</body>
+</html>

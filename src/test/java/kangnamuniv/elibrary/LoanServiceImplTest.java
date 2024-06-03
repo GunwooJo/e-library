@@ -54,7 +54,7 @@ public class LoanServiceImplTest {
     @Test
     public void testLoanBook() {
         Long userId = 1L;
-        Long bookId = 1L;
+        int bookId = 1;
         System.out.println("Testing loanBook with userId: {"+userId+"} and bookId: {"+bookId+"}" );
         when(loanRepository.findByBookIdAndIsReturnedFalse(bookId)).thenReturn(new ArrayList<>());
 
@@ -72,7 +72,7 @@ public class LoanServiceImplTest {
     @Test
     public void testReturnBook() {
         Long loanId = 1L;
-        Loan loan = new Loan(loanId, 1L, 1L, LocalDateTime.now(), LocalDateTime.now().plusWeeks(2), false);
+        Loan loan = new Loan(loanId, 1, 1L, LocalDateTime.now(), LocalDateTime.now().plusWeeks(2), false);
         when(loanRepository.findById(loanId)).thenReturn(Optional.of(loan));
         when(loanRepository.save(any(Loan.class))).thenReturn(loan);
 
@@ -86,7 +86,7 @@ public class LoanServiceImplTest {
     public void testFindLoansByUser() {
         Long userId = 1L;
         ArrayList<Loan> loans = new ArrayList<>();
-        loans.add(new Loan(1L, 1L, userId, LocalDateTime.now(), LocalDateTime.now().plusWeeks(2), false));
+        loans.add(new Loan(1L, 1, userId, LocalDateTime.now(), LocalDateTime.now().plusWeeks(2), false));
         when(loanRepository.findByUserIdAndIsReturnedFalse(userId)).thenReturn(loans);
 
         ArrayList<Loan> result = loanService.findLoansByUser(userId);

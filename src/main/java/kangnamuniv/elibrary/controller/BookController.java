@@ -1,9 +1,13 @@
 package kangnamuniv.elibrary.controller;
 
 
+import jakarta.servlet.http.HttpSession;
 import kangnamuniv.elibrary.dto.BookSearchResultDTO;
+import kangnamuniv.elibrary.entity.Loan;
+import kangnamuniv.elibrary.entity.User;
 import kangnamuniv.elibrary.service.BookService;
 import kangnamuniv.elibrary.entity.Book;
+import kangnamuniv.elibrary.service.LoanService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -15,9 +19,14 @@ public class BookController {
     @Autowired
     private BookService service;
 
+    @Autowired
+    private LoanService loanService;
+
     @RequestMapping("/home")
-    public String home(Model model) {
+    public String home(Model model, HttpSession session) {
         model.addAttribute("Books", service.getBook());
+        User user = (User) session.getAttribute("loggedInUser");
+        model.addAttribute("user", user);
         return "home";
     }
     private BookService getService() {
@@ -68,6 +77,13 @@ public class BookController {
         model.addAttribute("target", target);
 
         return "searchBookList";
+    }
+
+    @GetMapping("/loan/{id}")
+    public String loan(@PathVariable("id") int bookId, Model model, HttpSession session) {
+        User user = (User) session.getAttribute("loggedInUser");
+        Loan loan = loanService.loanBook(user.getId(), bookId);
+        return "redirect:/user/mypage";
     }
 }
 

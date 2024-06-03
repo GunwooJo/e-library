@@ -36,9 +36,9 @@ public class MemoryLoanRepository implements LoanRepository {
     }
 
     @Override
-    public ArrayList<Loan> findByBookIdAndIsReturnedFalse(Long bookId) {
+    public ArrayList<Loan> findByBookIdAndIsReturnedFalse(int bookId) {
         return (ArrayList<Loan>) loans.stream()
-                .filter(loan -> loan.getBookId().equals(bookId) && !loan.isReturned())
+                .filter(loan -> loan.getBookId() == (bookId) && !loan.isReturned())
                 .collect(Collectors.toList());
     }
 }

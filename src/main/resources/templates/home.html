@@ -14,13 +14,21 @@
         <strong>출판사:</strong> <span th:text="${book.publisher}"></span><br/>
         <strong>PDF Path:</strong> <span th:text="${book.pdfPath}"></span><br/>
         <strong>남은 책:</strong> <span th:text="${book.availableCount}"></span>
-        <form th:action="@{/detail/{id}(id=${book.id})}" method="get">
-            <button type="submit">수정하기</button>
-        </form>
-        <form th:action="@{/delete/{id}(id=${book.id})}" method="get">
-            <button type="submit">삭제하기</button>
-        </form>
-
+        <!-- 세션 값 체크 -> admin이면 수정삭제 표시 -->
+        <div th:if="${user != null and user.username == 'admin@naver.com'}">
+            <form th:action="@{/detail/{id}(id=${book.id})}" method="get">
+                <button type="submit">수정하기</button>
+            </form>
+            <form th:action="@{/delete/{id}(id=${book.id})}" method="get">
+                <button type="submit">삭제하기</button>
+            </form>
+        </div>
+        <!-- 세션 값 체크 -> admin이 아닐 시 -->
+        <div th:else>
+            <form th:action="@{/loan/{id}(id=${book.id})}" method="get">
+                <button type="submit">대출</button>
+            </form>
+        </div>
         <br/>
     </li>
 </ul>
