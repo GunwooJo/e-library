@@ -11,4 +11,5 @@ public interface BookDAO {
     Book findById(int id);
     BookSearchResultDTO searchBooksByTitle(String searchWord, int page, int size);
     BookSearchResultDTO searchBooksByAuthor(String searchWord, int page, int size);
+    void deleteBook(int id);
 }

@@ -28,7 +28,10 @@ public class BookServiceImpl implements BookService{
     public Book findById(int id) {
         return dao.findById(id);
     }
-
+    @Override
+    public void deleteBook(int id){
+        dao.deleteBook(id);
+    }
     @Override
     public BookSearchResultDTO searchBooksByTitle(String searchWord, int page, int size) {
         return dao.searchBooksByTitle(searchWord, page, size);
@@ -38,4 +41,5 @@ public class BookServiceImpl implements BookService{
     public BookSearchResultDTO searchBooksByAuthor(String searchWord, int page, int size) {
         return dao.searchBooksByAuthor(searchWord, page, size);
     }
+
 }
