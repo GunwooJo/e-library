@@ -23,14 +23,37 @@
          button {
              margin-right: 5px;
          }
+        canvas {
+            width: 100%;
+            height: auto;
+        }
+         #page-list {
+            position: fixed;
+            right: 0;
+            top: 0;
+            width: 100px;
+            height: 100vh;
+            overflow-y: scroll;
+            background: #f0f0f0;
+            border-right: 1px solid #ccc;
+            padding: 10px;
+            box-sizing: border-box;
+        }
+        #page-list span {
+            display: block;
+            margin-bottom: 5px;
+            cursor: pointer;
+            color: blue;
+        }
     </style>
 </head>
 <body>
 <!--    <embed th:src="@{/pdf/01_The_Lightning_Thief.pdf#toolbar=0&navpanes=0&scrollbar=0}" width="425" height="425" />-->
 <div id="pdf-viewer-container">
-    <canvas id="pdf-viewer-left"></canvas>
-    <canvas id="pdf-viewer-right"></canvas>
+    <canvas id="pdf-viewer-left" class="pdf-viewer"></canvas>
+    <canvas id="pdf-viewer-right" class="pdf-viewer"></canvas>
 </div>
+<div id="page-list"></div>
 <div class="button-container">
     <button onclick="prevPages()">Previous</button>
     <button onclick="nextPages()">Next</button>
@@ -90,8 +113,28 @@
         renderPages();
     }
 
+    function goToPage(num) {
+        pageNum = num % 2 === 0 ? num - 1 : num; // Ensure we're on an odd page to display correctly
+        renderPages();
+    }
+
+    function createPageList(numPages) {
+        var pageListContainer = document.getElementById('page-list');
+        for (var i = 1; i <= numPages; i++) {
+            var pageElement = document.createElement('span');
+            pageElement.textContent = i;
+            pageElement.onclick = (function(pageNum) {
+                return function() {
+                    goToPage(pageNum);
+                };
+            })(i);
+            pageListContainer.appendChild(pageElement);
+        }
+    }
+
     pdfjsLib.getDocument(url).promise.then(function(pdfDoc_) {
         pdfDoc = pdfDoc_;
+        createPageList(pdfDoc.numPages);
         renderPages();
     });
 </script>
