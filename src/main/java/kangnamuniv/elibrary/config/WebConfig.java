@@ -12,7 +12,7 @@ public class WebConfig implements WebMvcConfigurer {
     private AuthInterceptor authInterceptor;
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
-        log.info("addInterceptors ");
+        log.info("addInterceptors");
         registry.addInterceptor(authInterceptor)
                 .addPathPatterns("/**")    // 모든 요청에 대해 인터셉터 적용
                 .excludePathPatterns("/user/**"); // 로그인 및 회원가입 페이지는 제외

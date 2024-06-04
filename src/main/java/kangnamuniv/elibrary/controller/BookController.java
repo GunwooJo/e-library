@@ -79,11 +79,18 @@ public class BookController {
         return "searchBookList";
     }
 
-    @GetMapping("/loan/{id}")
+//    ======  Loan 영역  ======
+    @GetMapping("/book/loan/{id}")
     public String loan(@PathVariable("id") int bookId, Model model, HttpSession session) {
         User user = (User) session.getAttribute("loggedInUser");
         Loan loan = loanService.loanBook(user.getId(), bookId);
         return "redirect:/user/mypage";
+    }
+
+    @GetMapping("/book/loan/detail/{id}")
+    public String loanDetail(@PathVariable("id") int bookId, Model model) {
+
+        return "book/bookDetail";
     }
 }
 

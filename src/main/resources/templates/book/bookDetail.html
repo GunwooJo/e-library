@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.9.359/pdf.min.js"></script>
+    <style>
+        body {
+            display: block;
+            width: 1200px;
+            margin: 0 auto;
+        }
+        #pdf-viewer-container {
+             display: flex;
+         }
+         #pdf-viewer-left, #pdf-viewer-right {
+             width: 50%;
+             border: 1px solid black;
+         }
+         .button-container {
+             margin-top: 10px;
+         }
+         button {
+             margin-right: 5px;
+         }
+        canvas {
+            width: 100%;
+            height: auto;
+        }
+         #page-list {
+            position: fixed;
+            right: 0;
+            top: 0;
+            width: 100px;
+            height: 100vh;
+            overflow-y: scroll;
+            background: #f0f0f0;
+            border-right: 1px solid #ccc;
+            padding: 10px;
+            box-sizing: border-box;
+        }
+        #page-list span {
+            display: block;
+            margin-bottom: 5px;
+            cursor: pointer;
+            color: blue;
+        }
+    </style>
+</head>
+<body>
+<!--    <embed th:src="@{/pdf/01_The_Lightning_Thief.pdf#toolbar=0&navpanes=0&scrollbar=0}" width="425" height="425" />-->
+<div id="pdf-viewer-container">
+    <canvas id="pdf-viewer-left" class="pdf-viewer"></canvas>
+    <canvas id="pdf-viewer-right" class="pdf-viewer"></canvas>
+</div>
+<div id="page-list"></div>
+<div class="button-container">
+    <button onclick="prevPages()">Previous</button>
+    <button onclick="nextPages()">Next</button>
+</div>
+<script th:inline="javascript">
+    var url = /*[[@{/pdf/01_The_Lightning_Thief.pdf}]]*/ '';
+    var pdfDoc = null,
+        pageNum = 1,
+        scale = 1.5,
+        canvasLeft = document.getElementById('pdf-viewer-left'),
+        ctxLeft = canvasLeft.getContext('2d'),
+        canvasRight = document.getElementById('pdf-viewer-right'),
+        ctxRight = canvasRight.getContext('2d');
+
+    function renderPage(num, canvas, context) {
+        return pdfDoc.getPage(num).then(function(page) {
+            var viewport = page.getViewport({ scale: scale });
+            canvas.height = viewport.height;
+            canvas.width = viewport.width;
+
+            var renderContext = {
+                canvasContext: context,
+                viewport: viewport
+            };
+            return page.render(renderContext).promise;
+        });
+    }
+
+    function renderPages() {
+        if (pageNum > pdfDoc.numPages) {
+            pageNum = pdfDoc.numPages;
+        }
+        renderPage(pageNum, canvasLeft, ctxLeft).then(function() {
+            if (pageNum + 1 <= pdfDoc.numPages) {
+                renderPage(pageNum + 1, canvasRight, ctxRight);
+            } else {
+                ctxRight.clearRect(0, 0, canvasRight.width, canvasRight.height);
+            }
+        });
+    }
+
+    function prevPages() {
+        if (pageNum <= 2) {
+            pageNum = 1;
+        } else {
+            pageNum -= 2;
+        }
+        renderPages();
+    }
+
+    function nextPages() {
+        if (pageNum + 2 > pdfDoc.numPages) {
+            pageNum = pdfDoc.numPages - (pdfDoc.numPages % 2 ? 1 : 2);
+        } else {
+            pageNum += 2;
+        }
+        renderPages();
+    }
+
+    function goToPage(num) {
+        pageNum = num % 2 === 0 ? num - 1 : num; // Ensure we're on an odd page to display correctly
+        renderPages();
+    }
+
+    function createPageList(numPages) {
+        var pageListContainer = document.getElementById('page-list');
+        for (var i = 1; i <= numPages; i++) {
+            var pageElement = document.createElement('span');
+            pageElement.textContent = i;
+            pageElement.onclick = (function(pageNum) {
+                return function() {
+                    goToPage(pageNum);
+                };
+            })(i);
+            pageListContainer.appendChild(pageElement);
+        }
+    }
+
+    pdfjsLib.getDocument(url).promise.then(function(pdfDoc_) {
+        pdfDoc = pdfDoc_;
+        createPageList(pdfDoc.numPages);
+        renderPages();
+    });
+</script>
+</body>
+</html>

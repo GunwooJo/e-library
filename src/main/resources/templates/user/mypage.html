@@ -87,7 +87,7 @@
         <div class="profile">
             <img th:src="@{/img/simple_professional_profile_icon.png}" alt="Profile Picture">
             <div class="profile-info">
-                <h2 th:text="${user.username}"></h2>
+                <h2 th:text="${user?.username}"></h2>
             </div>
         </div>
         <div class="section">
@@ -106,6 +106,7 @@
                     <th>대출 날짜</th>
                     <th>반납 기한</th>
                     <th>반납 여부</th>
+                    <th>자세히</th>
                 </tr>
             </thead>
             <tbody>
@@ -115,7 +116,9 @@
                     <td th:text="${book.publisher}"></td>
                     <td th:text="${book.loanDate}"></td>
                     <td th:text="${book.dueDate}"></td>
-                    <td th:text="${book.isReturned}"></td>
+                    <td><button onclick="location.href='/book/loan/return'">반납</button></td>
+<!--                    <td th:text="${book.isReturned}"></td>-->
+                    <td><button th:onclick="'window.location.href = \'' + @{/book/loan/detail/{id}(id=${book.id})} + '\''">자세히</button></td>
                 </tr>
             </tbody>
             <tfoot>

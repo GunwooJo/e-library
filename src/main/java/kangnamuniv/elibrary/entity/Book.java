@@ -11,5 +11,5 @@ public class Book {
     String author;
     String publisher;
     String pdfPath;
-    int AvailableCount;
+    int availableCount;
 }
