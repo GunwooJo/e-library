@@ -1,5 +1,6 @@
 package kangnamuniv.elibrary.service;
 
+import kangnamuniv.elibrary.dto.BookDTO;
 import kangnamuniv.elibrary.dto.BookSearchResultDTO;
 import kangnamuniv.elibrary.entity.Book;
 import kangnamuniv.elibrary.repository.BookDAO;
@@ -20,8 +21,8 @@ public class BookServiceImpl implements BookService{
     }
 
     @Override
-    public void saveBook(Book book) {
-        dao.saveBook(book);
+    public void saveBook(BookDTO bookDTO) {
+        dao.saveBook(bookDTO.toEntity());
     }
 
     @Override

@@ -2,7 +2,7 @@ package kangnamuniv.elibrary.controller;
 
 
 import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpSession;
+import kangnamuniv.elibrary.dto.BookDTO;
 import kangnamuniv.elibrary.dto.BookSearchResultDTO;
 import kangnamuniv.elibrary.service.BookService;
 import kangnamuniv.elibrary.entity.Book;
@@ -37,8 +37,8 @@ public class BookController {
     }
 
     @PostMapping("/insert")
-    public String saveBook(Book book) {
-        service.saveBook(book);
+    public String saveBook(@ModelAttribute BookDTO bookDTO) {
+        service.saveBook(bookDTO);
         return "redirect:/home";
     }
 
