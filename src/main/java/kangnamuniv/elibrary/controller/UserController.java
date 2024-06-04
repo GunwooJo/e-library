@@ -1,5 +1,6 @@
 package kangnamuniv.elibrary.controller;
 
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import kangnamuniv.elibrary.dto.UserDTO;
 import kangnamuniv.elibrary.entity.User;
@@ -51,5 +52,16 @@ public class UserController {
         }
 
         return "/user/login";
+    }
+
+    @GetMapping("/user/logout")
+    public String logout(HttpServletRequest request) {
+
+        HttpSession session = request.getSession(false);
+        if (session != null) {
+            session.invalidate();
+        }
+
+        return "redirect:/user/login";
     }
 }
