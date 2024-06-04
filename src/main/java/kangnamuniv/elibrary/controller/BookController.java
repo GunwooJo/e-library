@@ -1,6 +1,8 @@
 package kangnamuniv.elibrary.controller;
 
 
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpSession;
 import kangnamuniv.elibrary.dto.BookSearchResultDTO;
 import kangnamuniv.elibrary.service.BookService;
 import kangnamuniv.elibrary.entity.Book;
@@ -16,8 +18,13 @@ public class BookController {
     private BookService service;
 
     @RequestMapping("/home")
-    public String home(Model model) {
+    public String home(Model model, HttpServletRequest request) {
         model.addAttribute("Books", service.getBook());
+        if(request.getSession(false) != null) {
+            model.addAttribute("isLoggedIn", true);
+        } else {
+            model.addAttribute("isLoggedIn", false);
+        }
         return "home";
     }
     private BookService getService() {
