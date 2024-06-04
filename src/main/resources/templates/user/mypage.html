@@ -87,7 +87,7 @@
         <div class="profile">
             <img th:src="@{/img/simple_professional_profile_icon.png}" alt="Profile Picture">
             <div class="profile-info">
-                <h2 th:text="${user.username}" th:if="${user.username} ne null"></h2>
+                <h2 th:text="${user?.username}"></h2>
             </div>
         </div>
         <div class="section">
@@ -118,7 +118,7 @@
                     <td th:text="${book.dueDate}"></td>
                     <td><button onclick="location.href='/book/loan/return'">반납</button></td>
 <!--                    <td th:text="${book.isReturned}"></td>-->
-                    <td><button onclick="'window.location.href = \'' + @{/book/loan/detail/{id}(id=${book.id})} + '\''">자세히</button></td>
+                    <td><button th:onclick="'window.location.href = \'' + @{/book/loan/detail/{id}(id=${book.id})} + '\''">자세히</button></td>
                 </tr>
             </tbody>
             <tfoot>
