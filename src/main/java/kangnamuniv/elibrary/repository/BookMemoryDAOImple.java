@@ -56,6 +56,13 @@ public class BookMemoryDAOImple implements BookDAO {
     }
 
     @Override
+    public void saveAvailableCount(int bookId, int availableCount) {
+        database.stream()
+                .filter(book -> book.getId() == bookId)
+                .forEach(book -> book.setAvailableCount(availableCount));
+    }
+
+    @Override
     public BookSearchResultDTO searchBooksByTitle(String searchWord, int page, int size) {
 
         int skip = (page - 1) * size;

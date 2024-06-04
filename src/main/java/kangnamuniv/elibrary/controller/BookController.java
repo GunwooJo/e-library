@@ -79,7 +79,7 @@ public class BookController {
         return "searchBookList";
     }
 
-    @GetMapping("/loan/{id}")
+    @GetMapping("/book/loan/{id}")
     public String loan(@PathVariable("id") int bookId, Model model, HttpSession session) {
         User user = (User) session.getAttribute("loggedInUser");
         Loan loan = loanService.loanBook(user.getId(), bookId);

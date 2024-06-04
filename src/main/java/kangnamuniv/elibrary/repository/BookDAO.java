@@ -12,4 +12,6 @@ public interface BookDAO {
     BookSearchResultDTO searchBooksByTitle(String searchWord, int page, int size);
     BookSearchResultDTO searchBooksByAuthor(String searchWord, int page, int size);
     void deleteBook(int id);
+
+    void saveAvailableCount(int bookId, int availableCount);
 }
