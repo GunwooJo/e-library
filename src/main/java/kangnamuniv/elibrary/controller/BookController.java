@@ -4,6 +4,7 @@ package kangnamuniv.elibrary.controller;
 import jakarta.servlet.http.HttpServletRequest;
 import kangnamuniv.elibrary.dto.BookDTO;
 import kangnamuniv.elibrary.dto.BookSearchResultDTO;
+import kangnamuniv.elibrary.entity.User;
 import kangnamuniv.elibrary.service.BookService;
 import kangnamuniv.elibrary.entity.Book;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,8 +21,13 @@ public class BookController {
     @RequestMapping("/home")
     public String home(Model model, HttpServletRequest request) {
         model.addAttribute("Books", service.getBook());
-        if(request.getSession(false) != null) {
+
+        User loggedInUser = (User) request.getSession(false).getAttribute("loggedInUser");
+
+        if(loggedInUser != null) {
             model.addAttribute("isLoggedIn", true);
+            model.addAttribute("userRole", loggedInUser.getRole());
+
         } else {
             model.addAttribute("isLoggedIn", false);
         }

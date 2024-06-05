@@ -37,10 +37,6 @@ public class UserController {
         session.setAttribute("loggedInUser", loggedInUser.get());
         session.setMaxInactiveInterval(1800);   //세션 유효시간 30분 = 1800초
 
-        if (loggedInUser.get().getRole() == UserRole.ROLE_ADMIN) {
-            return "redirect:/admin";
-        }
-
         return "redirect:/home";
     }
 

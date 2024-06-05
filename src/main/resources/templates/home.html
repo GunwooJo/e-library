@@ -27,7 +27,7 @@
     </li>
 </ul>
 <form action="/insertForm" method="get">
-    <button type="submit">도서 추가</button>
+    <button th:if="${userRole == T(kangnamuniv.elibrary.entity.UserRole).ROLE_ADMIN}" type="submit">도서 추가</button>
 </form>
 </body>
 </html>
