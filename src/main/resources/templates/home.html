@@ -8,6 +8,8 @@
 <h1>Book List</h1>
 
 <a th:if="${isLoggedIn}" href="/user/logout"><button>로그아웃</button></a>
+<a th:if="${userRole == T(kangnamuniv.elibrary.entity.UserRole).ROLE_ADMIN}" href="/insertForm"><button>도서 추가</button></a>
+
 <div th:replace="~{/fragments/searchForm :: search-form}"></div>
 <ul>
     <li th:each="book : ${Books}">
@@ -16,18 +18,15 @@
         <strong>출판사:</strong> <span th:text="${book.publisher}"></span><br/>
         <strong>PDF Path:</strong> <span th:text="${book.pdfPath}"></span><br/>
         <strong>남은 책:</strong> <span th:text="${book.availableCount}"></span>
-        <form th:action="@{/detail/{id}(id=${book.id})}" method="get">
+        <form th:if="${userRole == T(kangnamuniv.elibrary.entity.UserRole).ROLE_ADMIN}" th:action="@{/detail/{id}(id=${book.id})}" method="get">
             <button type="submit">수정하기</button>
         </form>
-        <form th:action="@{/delete/{id}(id=${book.id})}" method="get">
+        <form th:if="${userRole == T(kangnamuniv.elibrary.entity.UserRole).ROLE_ADMIN}" th:action="@{/delete/{id}(id=${book.id})}" method="get">
             <button type="submit">삭제하기</button>
         </form>
 
         <br/>
     </li>
 </ul>
-<form action="/insertForm" method="get">
-    <button th:if="${userRole == T(kangnamuniv.elibrary.entity.UserRole).ROLE_ADMIN}" type="submit">도서 추가</button>
-</form>
 </body>
 </html>
