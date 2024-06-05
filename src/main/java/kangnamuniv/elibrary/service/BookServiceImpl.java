@@ -4,16 +4,24 @@ import kangnamuniv.elibrary.dto.BookDTO;
 import kangnamuniv.elibrary.dto.BookSearchResultDTO;
 import kangnamuniv.elibrary.entity.Book;
 import kangnamuniv.elibrary.repository.BookDAO;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.List;
+import java.util.UUID;
 
 @Service
+@Slf4j
 public class BookServiceImpl implements BookService{
 
     @Autowired
     private BookDAO dao;
+
+    private final String uploadPath = "src/main/resources/static/pdf";
 
     @Override
     public List<Book> getBook() {
@@ -21,8 +29,21 @@ public class BookServiceImpl implements BookService{
     }
 
     @Override
-    public void saveBook(BookDTO bookDTO) {
-        dao.saveBook(bookDTO.toEntity());
+    public BookDTO saveBook(BookDTO bookDTO) throws Exception {
+
+        Path path = Paths.get(uploadPath);
+        if (!Files.exists(path)) {
+            Path directories = Files.createDirectories(path);
+            log.info("pdf 폴더 생성: {}", directories);
+        }
+
+        String filename = UUID.randomUUID() + "_" + bookDTO.getPdf().getOriginalFilename();
+        Path filePath = Paths.get(uploadPath, filename);
+        byte[] bytes = bookDTO.getPdf().getBytes();
+        Files.write(filePath, bytes);
+
+        dao.saveBook(bookDTO.toEntity(filePath.toString()));
+        return bookDTO;
     }
 
     @Override

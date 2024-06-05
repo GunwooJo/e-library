@@ -8,7 +8,7 @@ import java.util.List;
 
 public interface BookService {
     public List<Book> getBook();
-    void saveBook(BookDTO bookDTO);
+    BookDTO saveBook(BookDTO bookDTO) throws Exception;
     Book findById(int id);
     void deleteBook(int id);
     BookSearchResultDTO searchBooksByTitle(String searchWord, int page, int size);

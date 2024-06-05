@@ -2,6 +2,7 @@ package kangnamuniv.elibrary.dto;
 
 import kangnamuniv.elibrary.entity.Book;
 import lombok.*;
+import org.springframework.web.multipart.MultipartFile;
 
 @Getter
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
@@ -11,15 +12,15 @@ public class BookDTO {
     String title;
     String author;
     String publisher;
-    String pdfPath;
+    MultipartFile pdf;
     int availableCount;
 
-    public Book toEntity() {
+    public Book toEntity(String pdfPath) {
         Book book = Book.builder()
                 .title(this.title)
                 .author(this.author)
                 .publisher(this.publisher)
-                .pdfPath(this.pdfPath)
+                .pdfPath(pdfPath)
                 .availableCount(this.availableCount)
                 .build();
         return book;
