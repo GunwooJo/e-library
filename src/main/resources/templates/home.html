@@ -19,7 +19,7 @@
         <strong>PDF Path:</strong> <span th:text="${book.pdfPath}"></span><br/>
         <strong>남은 책:</strong> <span th:text="${book.availableCount}"></span>
         <!-- 세션 값 체크 -> admin이면 수정삭제 표시 -->
-        <div th:if="${user != null and user.username == 'admin@naver.com'}">
+        <div th:if="${user != null and user.username.equals('admin@naver.com')}">
             <form th:action="@{/detail/{id}(id=${book.id})}" method="get">
                 <button type="submit">수정하기</button>
             </form>
@@ -28,7 +28,7 @@
             </form>
         </div>
         <!-- 세션 값 체크 -> admin이 아닐 시 -->
-        <div th:unless="${user != null and user.username == 'admin@naver.com'}">
+        <div th:unless="${user != null and user.username.equals('admin@naver.com')}">
             <form th:action="@{/book/loan/{id}(id=${book.id})}" method="get">
                 <button type="submit" onclick="alert('1권 대출했습니다. 마이페이지로 이동합니다.');">대출</button>
             </form>

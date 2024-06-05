@@ -36,7 +36,7 @@ public class BookController {
         if(loggedInUser != null) {
             model.addAttribute("isLoggedIn", true);
             model.addAttribute("userRole", loggedInUser.getRole());
-
+            model.addAttribute("user", loggedInUser);
         } else {
             model.addAttribute("isLoggedIn", false);
         }
