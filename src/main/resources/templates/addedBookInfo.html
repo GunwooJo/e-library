@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>책 정보</title>
+    <div th:replace="~{/fragments/bootstrapSetting :: bootstrap-setting}"></div>
+</head>
+<body>
+    <div th:if="${error}">
+        <h3>오류</h3>
+        <p th:text="${error}">pdf 저장에러 메시지</p>
+    </div>
+
+    <div th:if="${savedBook}" >
+        <h3>등록 완료</h3>
+        <ul class="list-group">
+            <li class="list-group-item" th:text="|제목: ${savedBook.title}|">An item</li>
+            <li class="list-group-item" th:text="|저자: ${savedBook.author}|">A second item</li>
+            <li class="list-group-item" th:text="|출판사: ${savedBook.publisher}|">A third item</li>
+            <li class="list-group-item" th:text="|수량: ${savedBook.availableCount}|">A fourth item</li>
+        </ul>
+        <a href="/home" class="btn btn-primary">목록</a>
+    </div>
+
+</body>
+</html>

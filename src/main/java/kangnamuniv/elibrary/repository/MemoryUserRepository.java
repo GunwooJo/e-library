@@ -22,6 +22,15 @@ public class MemoryUserRepository implements UserRepository{
                 .role(UserRole.ROLE_ADMIN)
                 .build();
         db.put(admin.getId(), admin);
+
+        User user = User.builder()
+                .id(sequence++)
+                .username("test@naver.com")
+                .password("test")
+                .role(UserRole.ROLE_USER)
+                .build();
+        db.put(user.getId(), user);
+
     }
 
     @Override

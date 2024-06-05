@@ -2,18 +2,23 @@ package kangnamuniv.elibrary.controller;
 
 
 import jakarta.servlet.http.HttpSession;
-import kangnamuniv.elibrary.dto.BookSearchResultDTO;
 import kangnamuniv.elibrary.entity.Loan;
+import kangnamuniv.elibrary.service.LoanService;
+import jakarta.servlet.http.HttpServletRequest;
+import kangnamuniv.elibrary.dto.BookDTO;
+import kangnamuniv.elibrary.dto.BookSearchResultDTO;
 import kangnamuniv.elibrary.entity.User;
 import kangnamuniv.elibrary.service.BookService;
 import kangnamuniv.elibrary.entity.Book;
-import kangnamuniv.elibrary.service.LoanService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
+@Slf4j
 public class BookController {
 
     @Autowired
@@ -23,10 +28,18 @@ public class BookController {
     private LoanService loanService;
 
     @RequestMapping("/home")
-    public String home(Model model, HttpSession session) {
+    public String home(Model model, HttpServletRequest request) {
         model.addAttribute("Books", service.getBook());
-        User user = (User) session.getAttribute("loggedInUser");
-        model.addAttribute("user", user);
+
+        User loggedInUser = (User) request.getSession(false).getAttribute("loggedInUser");
+
+        if(loggedInUser != null) {
+            model.addAttribute("isLoggedIn", true);
+            model.addAttribute("userRole", loggedInUser.getRole());
+
+        } else {
+            model.addAttribute("isLoggedIn", false);
+        }
         return "home";
     }
     private BookService getService() {
@@ -39,9 +52,16 @@ public class BookController {
     }
 
     @PostMapping("/insert")
-    public String saveBook(Book book) {
-        service.saveBook(book);
-        return "redirect:/home";
+    public String saveBook(@ModelAttribute BookDTO bookDTO, Model model) {
+        try {
+            BookDTO savedBook = service.saveBook(bookDTO);
+            model.addAttribute("savedBook", savedBook);
+
+        } catch (Exception e) {
+            log.error("pdf 저장 에러: ", e);
+            model.addAttribute("error", e.getMessage());
+        }
+        return "addedBookInfo";
     }
 
     @GetMapping("/detail/{id}")

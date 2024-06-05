@@ -11,23 +11,24 @@ import java.util.stream.Collectors;
 @Repository
 public class BookMemoryDAOImple implements BookDAO {
     private List<Book> database;
+    private int id = 1;
 
     public BookMemoryDAOImple() {
         database = new ArrayList<>();
-        database.add(new Book(1,"이방인","알베르 카뮈","민음사","PDF경로1",3));
-        database.add(new Book(2,"어린 왕자","생텍쥐페리","새움","PDF경로2",3));
-        database.add(new Book(3,"인간 실격","다자이 오사무","잇북","PDF경로3",3));
-        database.add(new Book(4,"제목4","저자3","출판사3","PDF경로3",3));
-        database.add(new Book(5,"제목5","저자3","출판사3","PDF경로3",3));
-        database.add(new Book(6,"제목6","저자3","출판사3","PDF경로3",3));
-        database.add(new Book(7,"제목7","저자3","출판사3","PDF경로3",3));
-        database.add(new Book(8,"제목8","저자3","출판사3","PDF경로3",3));
-        database.add(new Book(9,"제목9","저자3","출판사3","PDF경로3",3));
-        database.add(new Book(10,"제목10","저자3","출판사3","PDF경로3",3));
-        database.add(new Book(11,"제목11","저자3","출판사3","PDF경로3",3));
-        database.add(new Book(12,"제목12","저자3","출판사3","PDF경로3",3));
-        database.add(new Book(13,"제목13","저자3","출판사3","PDF경로3",3));
-        database.add(new Book(14,"제목14","저자3","출판사3","PDF경로3",3));
+        database.add(new Book(id++,"이방인","알베르 카뮈","민음사","PDF경로1",3));
+        database.add(new Book(id++,"어린 왕자","생텍쥐페리","새움","PDF경로2",3));
+        database.add(new Book(id++,"인간 실격","다자이 오사무","잇북","PDF경로3",3));
+        database.add(new Book(id++,"제목4","저자3","출판사3","PDF경로3",3));
+        database.add(new Book(id++,"제목5","저자3","출판사3","PDF경로3",3));
+        database.add(new Book(id++,"제목6","저자3","출판사3","PDF경로3",3));
+        database.add(new Book(id++,"제목7","저자3","출판사3","PDF경로3",3));
+        database.add(new Book(id++,"제목8","저자3","출판사3","PDF경로3",3));
+        database.add(new Book(id++,"제목9","저자3","출판사3","PDF경로3",3));
+        database.add(new Book(id++,"제목10","저자3","출판사3","PDF경로3",3));
+        database.add(new Book(id++,"제목11","저자3","출판사3","PDF경로3",3));
+        database.add(new Book(id++,"제목12","저자3","출판사3","PDF경로3",3));
+        database.add(new Book(id++,"제목13","저자3","출판사3","PDF경로3",3));
+        database.add(new Book(id++,"제목14","저자3","출판사3","PDF경로3",3));
     }
 
     @Override
@@ -37,6 +38,7 @@ public class BookMemoryDAOImple implements BookDAO {
 
     @Override
     public void saveBook(Book book) {
+        book.setId(id++);
         database.add(book);
     }
 

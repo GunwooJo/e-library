@@ -4,7 +4,7 @@ package kangnamuniv.elibrary.entity;
 import lombok.*;
 
 @NoArgsConstructor @AllArgsConstructor
-@Getter @Setter @ToString
+@Getter @Setter @ToString @Builder
 public class Book {
     int id;
     String title;

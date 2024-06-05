@@ -1,11 +1,15 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
 </head>
 <body>
 <h1>Book List</h1>
+
+<a th:if="${isLoggedIn}" href="/user/logout"><button>로그아웃</button></a>
+<a th:if="${userRole == T(kangnamuniv.elibrary.entity.UserRole).ROLE_ADMIN}" href="/insertForm"><button>도서 추가</button></a>
+
 <div th:replace="~{/fragments/searchForm :: search-form}"></div>
 <ul>
     <li th:each="book : ${Books}">

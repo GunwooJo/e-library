@@ -1,5 +1,6 @@
 package kangnamuniv.elibrary.controller;
 
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import kangnamuniv.elibrary.dto.LoanBookDTO;
 import kangnamuniv.elibrary.dto.UserDTO;
@@ -47,10 +48,6 @@ public class UserController {
         session.setAttribute("loggedInUser", loggedInUser.get());
         session.setMaxInactiveInterval(1800);   //세션 유효시간 30분 = 1800초
 
-        if (loggedInUser.get().getRole() == UserRole.ROLE_ADMIN) {
-            return "redirect:/admin";
-        }
-
         return "redirect:/home";
     }
 
@@ -83,5 +80,16 @@ public class UserController {
 
 
         return "/user/mypage";
+    }
+
+    @GetMapping("/user/logout")
+    public String logout(HttpServletRequest request) {
+
+        HttpSession session = request.getSession(false);
+        if (session != null) {
+            session.invalidate();
+        }
+
+        return "redirect:/user/login";
     }
 }
