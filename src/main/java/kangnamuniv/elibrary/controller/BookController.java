@@ -100,13 +100,19 @@ public class BookController {
     }
 
 //    ======  Loan 영역  ======
-    @GetMapping("/book/loan/{id}")
+    @GetMapping("/book/loan/{id}")  // 대출
     public String loan(@PathVariable("id") int bookId, Model model, HttpSession session) {
         User user = (User) session.getAttribute("loggedInUser");
         Loan loan = loanService.loanBook(user.getId(), bookId);
+        System.out.println("Loaned Book: " + loan);
         return "redirect:/user/mypage";
     }
-
+    @GetMapping("/book/loan/return/{id}") // 반납
+    public String loanReturn(@PathVariable("id") Long loanId, Model model) {
+        Loan loan = loanService.returnBook(loanId);
+        System.out.println("Returned Loan: " + loan);
+        return "redirect:/user/mypage";
+    }
     @GetMapping("/book/loan/detail/{id}")
     public String loanDetail(@PathVariable("id") int bookId, Model model) {
 

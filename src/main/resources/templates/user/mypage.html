@@ -110,15 +110,16 @@
                 </tr>
             </thead>
             <tbody>
-                <tr th:each="book : ${books}">
+                <tr th:each="book : ${loanBooks}">
                     <td th:text="${book.title}"></td>
                     <td th:text="${book.author}"></td>
                     <td th:text="${book.publisher}"></td>
                     <td th:text="${book.loanDate}"></td>
                     <td th:text="${book.dueDate}"></td>
-                    <td><button onclick="location.href='/book/loan/return'">반납</button></td>
+                    <td th:text="${book.isReturned}"></td>
+                    <td><button th:onclick="'window.location.href = \'' + @{/book/loan/return/{id}(id=${book.id})} + '\''">반납</button></td>
 <!--                    <td th:text="${book.isReturned}"></td>-->
-                    <td><button th:onclick="'window.location.href = \'' + @{/book/loan/detail/{id}(id=${book.id})} + '\''">자세히</button></td>
+                    <td><button th:onclick="'window.location.href = \'' + @{/book/loan/detail/{id}(id=${book.bookId})} + '\''">자세히</button></td>
                 </tr>
             </tbody>
             <tfoot>

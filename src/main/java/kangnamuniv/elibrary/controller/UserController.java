@@ -74,7 +74,7 @@ public class UserController {
             }
 
 
-            model.addAttribute("books", loanBookDTOs);
+            model.addAttribute("loanBooks", loanBookDTOs);
             model.addAttribute("user", user);
         }
 
