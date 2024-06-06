@@ -21,10 +21,4 @@ public class WebConfig implements WebMvcConfigurer {
                 .addPathPatterns("/**")    // 모든 요청에 대해 인터셉터 적용
                 .excludePathPatterns("/user/**"); // 로그인 및 회원가입 페이지는 제외
     }
-
-    @Override
-    public void addResourceHandlers(ResourceHandlerRegistry registry) {
-        registry.addResourceHandler("/uploads/pdf/**")
-                .addResourceLocations("classpath:/uploads/pdf/");
-    }
 }

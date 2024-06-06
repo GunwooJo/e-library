@@ -18,12 +18,17 @@ import java.io.FileNotFoundException;
 public class FileApiController {
 
     private static final String BASE_DIR = System.getProperty("user.dir") + "\\src\\main\\resources\\uploads\\pdf\\";
+    private static final String DEFAULT_FILE = "Document_Notice_English.pdf";
 
     @GetMapping("/{name}")
     public ResponseEntity<InputStreamResource> getTermsConditions(@PathVariable("name") String name) throws FileNotFoundException {
-        HttpHeaders headers = new HttpHeaders();
-        headers.add("content-disposition", "inline;filename=" + name);
         File file = new File(BASE_DIR + name);
+        if (!file.exists() || !file.isFile()) {
+            file = new File(BASE_DIR + DEFAULT_FILE);
+        }
+
+        HttpHeaders headers = new HttpHeaders();
+        headers.add("content-disposition", "inline;filename=" + file.getName());
         InputStreamResource resource = new InputStreamResource(new FileInputStream(file));
 
         return ResponseEntity.ok()
