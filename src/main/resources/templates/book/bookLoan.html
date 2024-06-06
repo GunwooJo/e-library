@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>message</title>
+</head>
+<body>
+<div th:if="${msg}" th:text="${msg}" id="flashMsg" style="display:none;"></div>
+<script type="text/javascript">
+    window.onload = function() {
+        var msgElement = document.getElementById("flashMsg");
+        if (msgElement && msgElement.textContent) {
+            alert(msgElement.textContent);
+            // 일정 시간 후 리다이렉션하는 경우
+            // setTimeout(function() {
+            //     window.location.href = msgElement.textContent.includes("대출 불가") ? "/home" : "/user/mypage";
+            // }, 2000);
+
+            // 사용자 확인 후 리다이렉션하는 경우
+            if (msgElement.textContent.includes("대출 불가")) {
+                window.location.href = "/home";
+            } else {
+                window.location.href = "/user/mypage";
+            }
+        }
+    }
+</script>
+</body>
+</html>

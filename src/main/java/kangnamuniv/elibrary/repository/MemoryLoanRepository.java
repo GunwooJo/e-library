@@ -4,6 +4,7 @@ import kangnamuniv.elibrary.entity.Loan;
 import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.stream.Collectors;
 @Repository
@@ -39,6 +40,13 @@ public class MemoryLoanRepository implements LoanRepository {
     public ArrayList<Loan> findByBookIdAndIsReturnedFalse(int bookId) {
         return (ArrayList<Loan>) loans.stream()
                 .filter(loan -> loan.getBookId() == (bookId) && !loan.isReturned())
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public ArrayList<Loan> findByUserIdBookIdAndIsReturnedFalse(Long userId, int bookId) {
+        return (ArrayList<Loan>) loans.stream()
+                .filter(loan -> loan.getUserId().equals(userId) && loan.getBookId() == (bookId) && !loan.isReturned())
                 .collect(Collectors.toList());
     }
 }

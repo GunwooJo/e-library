@@ -22,7 +22,7 @@ public class LoanServiceImpl implements LoanService {
     public Loan loanBook(Long userId, int bookId) {
         Book book = bookMemoryDAOImple.findById(bookId);
         if(book.getAvailableCount() > 0) {
-            ArrayList<Loan> existingLoans = loanRepository.findByBookIdAndIsReturnedFalse(bookId);
+            ArrayList<Loan> existingLoans = loanRepository.findByUserIdBookIdAndIsReturnedFalse(userId, bookId);
             if (existingLoans.isEmpty()) {
                 LocalDateTime loanDate = LocalDateTime.now();
                 LocalDateTime dueDate = loanDate.plusWeeks(2);

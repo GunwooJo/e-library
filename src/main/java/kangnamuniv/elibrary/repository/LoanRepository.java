@@ -10,4 +10,5 @@ public interface LoanRepository {
     Optional<Loan> findById(Long id);
     ArrayList<Loan> findByUserIdAndIsReturnedFalse(Long userId);
     ArrayList<Loan> findByBookIdAndIsReturnedFalse(int bookId);
+    ArrayList<Loan> findByUserIdBookIdAndIsReturnedFalse(Long userId, int bookId);
 }

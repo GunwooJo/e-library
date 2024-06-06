@@ -104,8 +104,10 @@ public class BookController {
     public String loan(@PathVariable("id") int bookId, Model model, HttpSession session) {
         User user = (User) session.getAttribute("loggedInUser");
         Loan loan = loanService.loanBook(user.getId(), bookId);
+        String msg = loan == null ? "대출 불가합니다." : "1권 대출됐습니다. 마이페이지로 이동합니다.";
+        model.addAttribute("msg", msg);
         System.out.println("Loaned Book: " + loan);
-        return "redirect:/user/mypage";
+        return "book/bookLoan";
     }
     @GetMapping("/book/loan/return/{id}") // 반납
     public String loanReturn(@PathVariable("id") Long loanId, Model model) {

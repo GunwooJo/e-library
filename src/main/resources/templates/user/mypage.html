@@ -89,6 +89,17 @@
     </script>
 </head>
 <body>
+<div>
+    <p th:if="${msg}" th:text="${msg}" id="flashMsg" style="display:none;"></p>
+</div>
+<script type="text/javascript">
+    window.onload = function() {
+        var msgElement = document.getElementById("flashMsg");
+        if (msgElement && msgElement.textContent) {
+            alert(msgElement.textContent);
+        }
+    }
+</script>
     <div class="container">
         <a href="/home"><button>홈</button></a>
         <a href="/user/logout"><button>로그아웃</button></a>
