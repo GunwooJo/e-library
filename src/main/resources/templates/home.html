@@ -9,7 +9,7 @@
 
 <a th:if="${isLoggedIn}" href="/user/logout"><button>로그아웃</button></a>
 <a th:if="${userRole == T(kangnamuniv.elibrary.entity.UserRole).ROLE_ADMIN}" href="/insertForm"><button>도서 추가</button></a>
-
+<a th:if="${isLoggedIn}" href="/user/mypage"><button>마이 페이지</button></a>
 <div th:replace="~{/fragments/searchForm :: search-form}"></div>
 <ul>
     <li th:each="book : ${Books}">
@@ -36,10 +36,5 @@
         <br/>
     </li>
 </ul>
-<div th:unless="${user != null and user.username == 'admin@naver.com'}">
-    <form action="/insertForm" method="get">
-        <button type="submit">도서 추가</button>
-    </form>
-</div>
 </body>
 </html>
