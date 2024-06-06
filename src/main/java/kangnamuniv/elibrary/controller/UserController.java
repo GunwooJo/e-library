@@ -60,6 +60,13 @@ public class UserController {
 
         return "/user/login";
     }
+    public String extractUsername(String email) {
+        if (email == null || !email.contains("@")) {
+            throw new IllegalArgumentException("Invalid email address");
+        }
+        int atIndex = email.indexOf("@");
+        return email.substring(0, atIndex);
+    }
 
     @GetMapping("/user/mypage")
     public String myPage(Model model, HttpSession session) {
@@ -73,7 +80,8 @@ public class UserController {
                 loanBookDTOs.add(new LoanBookDTO(loan, book));
             }
 
-
+            String uname = extractUsername(user.getUsername());
+            model.addAttribute("uname", uname);
             model.addAttribute("loanBooks", loanBookDTOs);
             model.addAttribute("user", user);
         }

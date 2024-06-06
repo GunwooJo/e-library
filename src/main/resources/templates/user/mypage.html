@@ -78,6 +78,15 @@
            background-color: #f1f1f1;
        }
     </style>
+    <script>
+        function confirmRedirect(button) {
+            var bookId = button.getAttribute('data-book-id');
+            var bookTitle = button.getAttribute('data-book-title');
+            if (confirm('Are you sure you want to return the book with ID ' + bookId + ' and title "' + bookTitle + '"?')) {
+                window.location.href = '/book/loan/return/' + bookId;
+            }
+        }
+    </script>
 </head>
 <body>
     <div class="container">
@@ -92,7 +101,7 @@
         </div>
         <div class="section">
             <h3>Personal Information</h3>
-            <p><strong>Name:</strong></p>
+            <p><strong>Name:</strong> [[${uname}]]</p>
             <p><strong>Birthday:</strong> January 1, 1990</p>
             <p><strong>Location:</strong> New York, USA</p>
         </div>
@@ -116,8 +125,7 @@
                     <td th:text="${book.publisher}"></td>
                     <td th:text="${book.loanDate}"></td>
                     <td th:text="${book.dueDate}"></td>
-                    <td th:text="${book.isReturned}"></td>
-                    <td><button th:onclick="'window.location.href = \'' + @{/book/loan/return/{id}(id=${book.id})} + '\''">반납</button></td>
+                    <td><button th:attr="data-book-id=${book.id}, data-book-title=${book.title}" onclick="confirmRedirect(this)">반납</button></td>
 <!--                    <td th:text="${book.isReturned}"></td>-->
                     <td><button th:onclick="'window.location.href = \'' + @{/book/loan/detail/{id}(id=${book.bookId})} + '\''">자세히</button></td>
                 </tr>
