@@ -115,7 +115,8 @@ public class BookController {
     }
     @GetMapping("/book/loan/detail/{id}")
     public String loanDetail(@PathVariable("id") int bookId, Model model) {
-
+        Book book = service.findById(bookId);
+        model.addAttribute("book", book);
         return "book/bookDetail";
     }
 }

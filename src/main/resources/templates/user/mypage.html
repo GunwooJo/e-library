@@ -82,7 +82,7 @@
         function confirmRedirect(button) {
             var bookId = button.getAttribute('data-book-id');
             var bookTitle = button.getAttribute('data-book-title');
-            if (confirm('Are you sure you want to return the book with ID ' + bookId + ' and title "' + bookTitle + '"?')) {
+            if (confirm('ID ' + bookId + ', title "' + bookTitle + '"를 반납 하시겠습니까?')) {
                 window.location.href = '/book/loan/return/' + bookId;
             }
         }
@@ -126,7 +126,6 @@
                     <td th:text="${book.loanDate}"></td>
                     <td th:text="${book.dueDate}"></td>
                     <td><button th:attr="data-book-id=${book.id}, data-book-title=${book.title}" onclick="confirmRedirect(this)">반납</button></td>
-<!--                    <td th:text="${book.isReturned}"></td>-->
                     <td><button th:onclick="'window.location.href = \'' + @{/book/loan/detail/{id}(id=${book.bookId})} + '\''">자세히</button></td>
                 </tr>
             </tbody>

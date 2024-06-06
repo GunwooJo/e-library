@@ -21,7 +21,7 @@ public class BookServiceImpl implements BookService{
     @Autowired
     private BookDAO dao;
 
-    private final String uploadPath = "src/main/resources/static/pdf";
+    private final String uploadPath = "src/main/resources/uploads/pdf";
 
     @Override
     public List<Book> getBook() {
@@ -42,7 +42,7 @@ public class BookServiceImpl implements BookService{
         byte[] bytes = bookDTO.getPdf().getBytes();
         Files.write(filePath, bytes);
 
-        dao.saveBook(bookDTO.toEntity(filePath.toString()));
+        dao.saveBook(bookDTO.toEntity(filename));
         return bookDTO;
     }
 

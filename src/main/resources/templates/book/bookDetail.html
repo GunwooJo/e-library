@@ -57,9 +57,10 @@
 <div class="button-container">
     <button onclick="prevPages()">Previous</button>
     <button onclick="nextPages()">Next</button>
+    [[${book.pdfPath}]]
 </div>
 <script th:inline="javascript">
-    var url = /*[[@{/pdf/01_The_Lightning_Thief.pdf}]]*/ '';
+    var url = /*[[@{'/pdf/' + ${book.pdfPath}}]]*/ '';
     var pdfDoc = null,
         pageNum = 1,
         scale = 1.5,
