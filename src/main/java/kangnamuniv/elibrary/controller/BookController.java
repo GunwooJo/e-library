@@ -77,6 +77,12 @@ public class BookController {
         return "redirect:/home";
     }
 
+    @PostMapping("/update")
+    public String update(@ModelAttribute Book book) {
+        service.updateBook(book);
+        return "redirect:/home";
+    }
+
     @GetMapping("/book/search")
     public String searchByTitle(@RequestParam String keyword, @RequestParam String target, @RequestParam int page,  Model model) {
 
