@@ -5,6 +5,7 @@ import kangnamuniv.elibrary.entity.Loan;
 import kangnamuniv.elibrary.repository.BookDAO;
 import kangnamuniv.elibrary.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.scheduling.annotation.Scheduled;
@@ -15,6 +16,7 @@ import java.util.List;
 
 @Service
 @RequiredArgsConstructor
+@Slf4j
 public class NotificationServiceImpl implements NotificationService{
 
     private final JavaMailSender javaMailSender;
@@ -27,6 +29,12 @@ public class NotificationServiceImpl implements NotificationService{
     public void sendExpireAlertEmail() {
 
         List<Loan> loans = loanService.findByDueUnderNumDays(2);
+
+        if (loans.isEmpty()) {
+            log.info("대출만기 알림을 보낼 대상 없음.");
+            return;
+        }
+
         for (Loan loan : loans) {
             Long userId = loan.getUserId();
             int bookId = loan.getBookId();
