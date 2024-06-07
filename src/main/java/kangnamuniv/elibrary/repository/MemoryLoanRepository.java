@@ -3,7 +3,10 @@ package kangnamuniv.elibrary.repository;
 import kangnamuniv.elibrary.entity.Loan;
 import org.springframework.stereotype.Repository;
 
+import java.time.Duration;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -48,5 +51,15 @@ public class MemoryLoanRepository implements LoanRepository {
         return (ArrayList<Loan>) loans.stream()
                 .filter(loan -> loan.getUserId().equals(userId) && loan.getBookId() == (bookId) && !loan.isReturned())
                 .collect(Collectors.toList());
+    }
+
+    @Override
+    public List<Loan> findEmailAlertLoan() {
+        return loans.stream()
+                .filter(loan -> {
+                    Duration duration = Duration.between(loan.getDueDate(), LocalDateTime.now());
+                    long days = duration.toDays();
+                    return days < 2;
+                }).collect(Collectors.toList());
     }
 }

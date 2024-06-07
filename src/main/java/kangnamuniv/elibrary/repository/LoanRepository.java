@@ -3,6 +3,7 @@ package kangnamuniv.elibrary.repository;
 import kangnamuniv.elibrary.entity.Loan;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 public interface LoanRepository {
@@ -11,4 +12,5 @@ public interface LoanRepository {
     ArrayList<Loan> findByUserIdAndIsReturnedFalse(Long userId);
     ArrayList<Loan> findByBookIdAndIsReturnedFalse(int bookId);
     ArrayList<Loan> findByUserIdBookIdAndIsReturnedFalse(Long userId, int bookId);
+    List<Loan> findEmailAlertLoan();
 }

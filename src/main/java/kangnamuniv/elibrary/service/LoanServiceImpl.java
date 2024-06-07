@@ -10,6 +10,8 @@ import org.springframework.stereotype.Service;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.List;
+
 @Service
 public class LoanServiceImpl implements LoanService {
     @Autowired
@@ -49,5 +51,10 @@ public class LoanServiceImpl implements LoanService {
     @Override
     public ArrayList<Loan> findLoansByUser(Long userId) {
         return loanRepository.findByUserIdAndIsReturnedFalse(userId);
+    }
+
+    @Override
+    public List<Loan> findEmailAlertLoan() {
+        return loanRepository.findEmailAlertLoan();
     }
 }
