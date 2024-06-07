@@ -2,12 +2,10 @@ package kangnamuniv.elibrary.service;
 import kangnamuniv.elibrary.entity.Book;
 import kangnamuniv.elibrary.entity.Loan;
 import kangnamuniv.elibrary.repository.BookMemoryDAOImple;
-import kangnamuniv.elibrary.repository.LoanRepository;
 import kangnamuniv.elibrary.repository.MemoryLoanRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -54,7 +52,7 @@ public class LoanServiceImpl implements LoanService {
     }
 
     @Override
-    public List<Loan> findEmailAlertLoan() {
-        return loanRepository.findEmailAlertLoan();
+    public List<Loan> findByDueUnder2Days() {
+        return loanRepository.findByDueUnder2Days();
     }
 }

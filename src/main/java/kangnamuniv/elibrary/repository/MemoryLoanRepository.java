@@ -54,7 +54,7 @@ public class MemoryLoanRepository implements LoanRepository {
     }
 
     @Override
-    public List<Loan> findEmailAlertLoan() {
+    public List<Loan> findByDueUnder2Days() {
         return loans.stream()
                 .filter(loan -> {
                     Duration duration = Duration.between(loan.getDueDate(), LocalDateTime.now());
