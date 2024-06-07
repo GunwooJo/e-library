@@ -46,4 +46,12 @@ public class MemoryUserRepository implements UserRepository{
                 .filter(user -> user.getUsername().equals(username))
                 .findFirst();
     }
+
+    @Override
+    public String findUsernameById(Long id) {
+        User foundUser = db.values().stream()
+                .filter(user -> user.getId().equals(id))
+                .findAny().orElseThrow(() -> new RuntimeException("해당 id를 가진 user 없음."));
+        return foundUser.getUsername();
+    }
 }
