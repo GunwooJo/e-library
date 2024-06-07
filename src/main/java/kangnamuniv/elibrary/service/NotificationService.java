@@ -7,7 +7,7 @@ import java.util.List;
 
 public interface NotificationService {
 
-    void sendExpireAlertEmail(List<Loan> loans);
+    void sendExpireAlertEmail();
 
     void sendEmail(MailDTO mailDTO);
 }
