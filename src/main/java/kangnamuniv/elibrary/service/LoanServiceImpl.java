@@ -52,7 +52,7 @@ public class LoanServiceImpl implements LoanService {
     }
 
     @Override
-    public List<Loan> findByDueUnder2Days() {
-        return loanRepository.findByDueUnder2Days();
+    public List<Loan> findByDueUnderNumDays(long num) {
+        return loanRepository.findByDueUnderNumDays(num);
     }
 }

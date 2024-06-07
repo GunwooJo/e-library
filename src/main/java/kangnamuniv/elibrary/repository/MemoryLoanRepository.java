@@ -54,12 +54,12 @@ public class MemoryLoanRepository implements LoanRepository {
     }
 
     @Override
-    public List<Loan> findByDueUnder2Days() {
+    public List<Loan> findByDueUnderNumDays(long num) {
         return loans.stream()
                 .filter(loan -> {
                     Duration duration = Duration.between(loan.getDueDate(), LocalDateTime.now());
                     long days = duration.toDays();
-                    return days < 2;
+                    return days < num;
                 }).collect(Collectors.toList());
     }
 }

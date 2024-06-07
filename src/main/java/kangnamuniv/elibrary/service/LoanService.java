@@ -9,5 +9,5 @@ public interface LoanService {
     Loan loanBook(Long userId, int bookId);
     Loan returnBook(Long loanId);
     ArrayList<Loan> findLoansByUser(Long userId);
-    List<Loan> findByDueUnder2Days();
+    List<Loan> findByDueUnderNumDays(long num);
 }

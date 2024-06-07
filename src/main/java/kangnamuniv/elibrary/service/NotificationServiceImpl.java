@@ -26,7 +26,7 @@ public class NotificationServiceImpl implements NotificationService{
     @Override
     public void sendExpireAlertEmail() {
 
-        List<Loan> loans = loanService.findByDueUnder2Days();
+        List<Loan> loans = loanService.findByDueUnderNumDays(2);
         for (Loan loan : loans) {
             Long userId = loan.getUserId();
             int bookId = loan.getBookId();

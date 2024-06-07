@@ -12,5 +12,5 @@ public interface LoanRepository {
     ArrayList<Loan> findByUserIdAndIsReturnedFalse(Long userId);
     ArrayList<Loan> findByBookIdAndIsReturnedFalse(int bookId);
     ArrayList<Loan> findByUserIdBookIdAndIsReturnedFalse(Long userId, int bookId);
-    List<Loan> findByDueUnder2Days();
+    List<Loan> findByDueUnderNumDays(long num);
 }
