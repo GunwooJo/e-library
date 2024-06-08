@@ -38,6 +38,7 @@ dependencies {
 	testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
 	testImplementation 'org.mockito:mockito-core'
 	compileOnly group: 'javax.servlet', name: 'javax.servlet-api', version: '3.0.1' // intercepter에 사용
+
 }
 
 tasks.named('test') {
