@@ -64,4 +64,9 @@ public class BookServiceImpl implements BookService{
         return dao.searchBooksByAuthor(searchWord, page, size);
     }
 
+    @Override
+    public void updateBook(Book book){
+        dao.updateBook(book);
+    }
+
 }

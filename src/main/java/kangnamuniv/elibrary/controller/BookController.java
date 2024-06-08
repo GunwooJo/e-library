@@ -1,7 +1,9 @@
 package kangnamuniv.elibrary.controller;
 
 import jakarta.servlet.http.HttpSession;
+import kangnamuniv.elibrary.dto.BookRequestDTO;
 import kangnamuniv.elibrary.entity.Loan;
+import kangnamuniv.elibrary.service.BookRequestService;
 import kangnamuniv.elibrary.service.LoanService;
 import jakarta.servlet.http.HttpServletRequest;
 import kangnamuniv.elibrary.dto.BookDTO;
@@ -24,6 +26,9 @@ public class BookController {
 
     @Autowired
     private LoanService loanService;
+
+    @Autowired
+    private BookRequestService RequestService;
 
     @RequestMapping("/home")
     public String home(Model model, HttpServletRequest request) {
@@ -72,6 +77,49 @@ public class BookController {
         return "redirect:/home";
     }
 
+    @PostMapping("/update")
+    public String update(@ModelAttribute Book book) {
+        service.updateBook(book);
+        return "redirect:/home";
+    }
+
+    @GetMapping("/bookRequest")
+    public String bookRequest(Model model, HttpServletRequest request) {
+        model.addAttribute("BookRequests", RequestService.getBookRequest());
+        User loggedInUser = (User) request.getSession(false).getAttribute("loggedInUser");
+
+        if(loggedInUser != null) {
+            model.addAttribute("isLoggedIn", true);
+            model.addAttribute("userRole", loggedInUser.getRole());
+            model.addAttribute("user", loggedInUser);
+        } else {
+            model.addAttribute("isLoggedIn", false);
+        }
+
+        return "bookRequestForm";
+    }
+
+    @PostMapping("/bookRequestInsert")
+    public String bookRequestInsert(@ModelAttribute BookRequestDTO bookRequestDTO, Model model) {
+        try {
+            RequestService.saveBookRequest(bookRequestDTO);
+        } catch (Exception e) {
+            log.error("도서 신청 중 오류 발생: ", e);
+            model.addAttribute("error", "도서 신청 중 오류가 발생했습니다.");
+            return "bookRequestForm";
+        }
+        return "redirect:/bookRequest";
+    }
+
+    @GetMapping("/deleteBookRequest/{id}")
+    public String deleteBookRequest(@PathVariable("id") int id) {
+        try {
+            RequestService.deleteBookRequest(id);
+        } catch (Exception e) {
+            log.error("도서 신청 삭제 중 오류 발생: ", e);
+        }
+        return "redirect:/bookRequest";
+    }
     @GetMapping("/book/search")
     public String searchByTitle(@RequestParam String keyword, @RequestParam String target, @RequestParam int page,  Model model) {
 

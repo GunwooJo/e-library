@@ -58,6 +58,17 @@ public class BookMemoryDAOImple implements BookDAO {
     }
 
     @Override
+    public void updateBook(Book book){
+        for(int i=0; i < database.size(); i++) {
+            if(database.get(i).getId() == book.getId()) {
+                database.set(i, book);
+                return;
+            }
+        }
+    }
+
+
+    @Override
     public void deleteBook(int id){
         database.removeIf(book -> book.getId() == id);
     }

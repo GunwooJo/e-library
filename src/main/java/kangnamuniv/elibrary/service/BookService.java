@@ -13,4 +13,6 @@ public interface BookService {
     void deleteBook(int id);
     BookSearchResultDTO searchBooksByTitle(String searchWord, int page, int size);
     BookSearchResultDTO searchBooksByAuthor(String searchWord, int page, int size);
+    void updateBook(Book book);
+
 }
