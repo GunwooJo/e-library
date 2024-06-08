@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>도서 신청</title>
+</head>
+<body>
+
+<div th:if="${userRole != T(kangnamuniv.elibrary.entity.UserRole).ROLE_ADMIN}">
+<form action="/bookRequestInsert" method="post" enctype="multipart/form-data">
+    <label for="title">제목:</label><br>
+    <input type="text" id="title" name="title"><br>
+    <label for="author">저자:</label><br>
+    <input type="text" id="author" name="author"><br>
+    <label for="publisher">출판사:</label><br>
+    <input type="text" id="publisher" name="publisher"><br>
+    <br><br> <input type="submit" value="신청하기">
+</form>
+</div>
+<a href="/home"><button>홈</button></a>
+<br>
+지금까지 신청된 목록
+
+<ul>
+    <li th:each="bookRequest : ${BookRequests}">
+        <strong>제목:</strong> <span th:text="${bookRequest.title}"></span><br/>
+        <strong>저자:</strong> <span th:text="${bookRequest.author}"></span><br/>
+        <strong>출판사:</strong> <span th:text="${bookRequest.publisher}"></span><br/>
+        <a th:if="${userRole == T(kangnamuniv.elibrary.entity.UserRole).ROLE_ADMIN}" th:href="@{'/deleteBookRequest/' + ${bookRequest.id}}"><button>등록 완료(삭제)</button></a>
+        <br/>
+    </li>
+</ul>
+
+</body>
+</html>
