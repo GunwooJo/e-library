@@ -40,9 +40,6 @@ public class BookController {
         }
         return "home";
     }
-    private BookService getService() {
-        return service;
-    }
 
     @GetMapping("/insertForm")
     public String save(Model model) {

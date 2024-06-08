@@ -7,7 +7,6 @@ import kangnamuniv.elibrary.dto.UserDTO;
 import kangnamuniv.elibrary.entity.Book;
 import kangnamuniv.elibrary.entity.Loan;
 import kangnamuniv.elibrary.entity.User;
-import kangnamuniv.elibrary.entity.UserRole;
 import kangnamuniv.elibrary.service.BookService;
 import kangnamuniv.elibrary.service.LoanService;
 import kangnamuniv.elibrary.service.UserService;
