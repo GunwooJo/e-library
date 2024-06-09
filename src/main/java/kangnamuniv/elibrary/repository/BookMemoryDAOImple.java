@@ -15,25 +15,24 @@ public class BookMemoryDAOImple implements BookDAO {
 
     public BookMemoryDAOImple() {
         database = new ArrayList<>();
-        database.add(new Book(id++,"이방인","알베르 카뮈","민음사","PDF경로1",3));
-        database.add(new Book(id++,"어린 왕자","생텍쥐페리","새움","PDF경로2",3));
-        database.add(new Book(id++,"인간 실격","다자이 오사무","잇북","PDF경로3",3));
-        database.add(new Book(id++,"The Way Of The Superior Man","mirror","PDFy mirror","The Way Of The Superior Man.pdf",3));
-        database.add(new Book(id++,"The lightning thief","Riordan, Rick","Miramax","01_The_Lightning_Thief.pdf",3));
-        database.add(new Book(id++,"The Creature From Jekyll Island","mirror","PDFy mirror","The Creature From Jekyll Island.pdf",3));
-        database.add(new Book(id++,"Complete Guide to Drawing from Life","Bridgman","PDFy mirror","Bridgman - Complete Guide to Drawing from Life_text.pdf",3));
-        database.add(new Book(id++,"This Changes Everything","Naomi Klein","PDFy mirror","Naomi Klein - This Changes Everything.pdf",3));
-        database.add(new Book(id++,"제목9","저자3","출판사3","PDF경로3",3));
-        database.add(new Book(id++,"제목10","저자3","출판사3","PDF경로3",3));
-        database.add(new Book(id++,"제목11","저자3","출판사3","PDF경로3",3));
-        database.add(new Book(id++,"제목12","저자3","출판사3","PDF경로3",3));
-        database.add(new Book(id++,"제목13","저자3","출판사3","PDF경로3",3));
-        database.add(new Book(id++,"제목14","저자3","출판사3","PDF경로3",3));
-        database.add(new Book(id++,"제목15","저자3","출판사3","PDF경로3",3));
-        database.add(new Book(id++,"제목16","저자3","출판사3","PDF경로3",3));
-        database.add(new Book(id++,"제목17","저자3","출판사3","PDF경로3",3));
-        database.add(new Book(id++,"제목18","저자3","출판사3","PDF경로3",3));
-        database.add(new Book(id++,"제목19","저자3","출판사3","PDF경로3",3));
+        database.add(new Book(id++,"이방인","알베르 키위","민음사","The Stranger.pdf",3));
+        database.add(new Book(id++,"네 안의 진정한 남자를 깨워라(The Way Of The Superior Man)","mirror","PDFy mirror","The Way Of The Superior Man.pdf",2));
+        database.add(new Book(id++,"올림포스의 신(The lightning thief)","Riordan, Rick","Miramax","01_The_Lightning_Thief.pdf",1));
+        database.add(new Book(id++,"지킬 섬의 생물(The Creature From Jekyll Island)","mirror","PDFy mirror","The Creature From Jekyll Island.pdf",0));
+        database.add(new Book(id++,"인생에서 그림을 그리는 완벽한 가이드(Complete Guide to Drawing from Life)","Bridgman","PDFy mirror","Bridgman - Complete Guide to Drawing from Life_text.pdf",3));
+        database.add(new Book(id++,"제목01","저자","출판사","data.pdf",3));
+        database.add(new Book(id++,"제목02","저자","출판사","data.pdf",3));
+        database.add(new Book(id++,"제목03","저자","출판사","data.pdf",3));
+        database.add(new Book(id++,"제목04","저자","출판사","data.pdf",3));
+        database.add(new Book(id++,"제목05","저자","출판사","data.pdf",3));
+        database.add(new Book(id++,"제목06","저자","출판사","data.pdf",3));
+        database.add(new Book(id++,"제목07","저자","출판사","data.pdf",3));
+        database.add(new Book(id++,"제목08","저자","출판사","data.pdf",3));
+        database.add(new Book(id++,"제목09","저자","출판사","data.pdf",3));
+        database.add(new Book(id++,"제목10","저자","출판사","data.pdf",3));
+        database.add(new Book(id++,"제목11","저자","출판사","data.pdf",3));
+        database.add(new Book(id++,"제목12","저자","출판사","data.pdf",3));
+        database.add(new Book(id++,"제목13","저자","출판사","data.pdf",3));
     }
 
     @Override

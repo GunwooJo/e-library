@@ -14,8 +14,8 @@ public class BookRequestDAOImple implements BookRequestDAO {
 
     public BookRequestDAOImple() {
         RequestDatabase = new ArrayList<>();
-        RequestDatabase.add(new BookRequest(RequestId++, "호밀밭의 파수꾼", "J.D.샐린저", "민음사"));
-        RequestDatabase.add(new BookRequest(RequestId++, "달과 6펜스", "서머 셋몸", "홍신문화사"));
+        RequestDatabase.add(new BookRequest(RequestId++, "아낌없이 주는 나영", "정나영", "강남출판사"));
+        RequestDatabase.add(new BookRequest(RequestId++, "호밀밭의 조건우", "조건우", "강남출판사"));
     }
     @Override
     public List<BookRequest> getBookRequest() {
