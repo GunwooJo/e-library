@@ -121,7 +121,7 @@ public class BookController {
         return "redirect:/bookRequest";
     }
     @GetMapping("/book/search")
-    public String searchByTitle(@RequestParam String keyword, @RequestParam String target, @RequestParam int page,  Model model) {
+    public String searchByTarget(@RequestParam String keyword, @RequestParam String target, @RequestParam int page,  Model model) {
 
         BookSearchResultDTO result;
 
